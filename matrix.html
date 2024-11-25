@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainfall Effect</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            /* Dark background */
+        }
+
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            /* Raindrop width */
+            height: 20px;
+            /* Raindrop length */
+            background-color: rgba(0, 0, 255, 0.7);
+            /* Blue raindrop */
+            animation: fall linear infinite;
+        }
+
+        /* Animation for raindrop falling down */
+        @keyframes fall {
+            0% {
+                top: -20px;
+                /* Start just above the screen */
+                opacity: 1;
+            }
+
+            100% {
+                top: 100vh;
+                /* Fall to the bottom */
+                opacity: 0;
+                /* Fade out as it falls */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        // Function to create a raindrop
+        const createRaindrop = () => {
+            const raindrop = document.createElement('div');
+            raindrop.classList.add('raindrop');
+
+            // Randomize the horizontal position of the raindrop
+            raindrop.style.left = `${Math.random() * window.innerWidth}px`;
+
+            // Randomize the speed (duration of the fall)
+            raindrop.style.animationDuration = `${Math.random() * 2 + 2}s`; // Between 2s and 4s
+            raindrop.style.animationDelay = `${Math.random() * 2}s`; // Random delay to stagger the drops
+
+            document.body.appendChild(raindrop);
+
+            // Remove raindrop when it goes off the screen
+            raindrop.addEventListener('animationend', () => {
+                raindrop.remove();
+            });
+        };
+
+        // Generate raindrops every 50ms
+        setInterval(createRaindrop, 50);
+    </script>
+
+</body>
+
+</html>
